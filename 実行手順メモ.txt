@@ -4,37 +4,18 @@
 実行した内容（コミットするまでのコマンド実行・ソース記述や処理等）
 ※コミット毎なので、以下の内容が都度更新され、前のコミットは削除される。（コミット時に記述忘れの場合は、次コミット時にまとめて記述）
 
-・Node.jsとTypeScript初期設定
+・Postgresql接続確認
 
-プロジェクトフォルダ下にて、以下のコマンド実行
+src/.envファイル作成し、設定値を記述
+src/db.tsファイル作成し、接続情報などを記述
 
-npmの初期化設定
-npm init -y
+必要パッケージ（モジュール）をインストール
+npm install pg dotenv
+npm install --save-dev @types/pg
 
-TypeScript開発環境を導入
-npm install -D typescript ts-node @types/node
-
-
-・tsconfig設定変更
-
-tsconfig内の一部を有効化
-対象
-{
-  "target": "ES2020",           // ES2020 以上に変更
-  "module": "CommonJS",         // デフォルト
-  "strict": true,               // デフォルト
-  "outDir": "./dist",           // コンパイル後の出力先
-  "rootDir": "./src",           // TypeScript のソースフォルダ
-  "resolveJsonModule": true,    // JSONをimportできるようにする
-  "esModuleInterop": true       // ES6のimport/exportを使えるようにする（デフォルト）
-}
-
-・TypeScript実行確認チェック
-/src/index.tsを作成。
-
-index.tsに以下を記述。
-console.log("Hello, TypeScript!");
-
-ターミナルにて以下を実行。（実行ディレクトリ：プロジェクトフォルダ）
+以下をターミナル実行
 npx ts-node src/index.ts
-問題なくHello, TypeScript!が出たことを確認。
+
+失敗が起きたため、原因追及。
+原因：src/.envファイルの位置が違った。プロジェクト直下に.envを移動。
+
