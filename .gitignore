@@ -48,3 +48,5 @@ Thumbs.db
 *.mov
 *.wmv
 
+# 環境変数ファイルをGit管理対象から除外
+.env
