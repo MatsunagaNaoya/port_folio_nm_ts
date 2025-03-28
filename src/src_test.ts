@@ -1,24 +1,4 @@
-import pool from "../common/interface/db";
-
-async function fetchDataWithNamedParams(query: string, params: { [key: string]: any }) {
-  try {
-    // 名前付きパラメータを$1, $2, ... の形式に変換
-    let index = 1;
-    const transformedQuery = query.replace(/:(\w+)/g, (_, paramName) => {
-      const paramValue = params[paramName];
-      if (paramValue === undefined) {
-        throw new Error(`Missing parameter: ${paramName}`);
-      }
-      return `$${index++}`;
-    });
-
-    // クエリ実行
-    const result = await pool.query(transformedQuery, Object.values(params));
-    console.log('Fetched data:', result.rows);  // 取得したデータを表示
-  } catch (err) {
-    console.error('Error fetching data:', err);
-  }
-}
+import { dbConnections } from "../common/interface/db";
 
 // 使用例
 const query = `
@@ -47,4 +27,4 @@ const params = {
   dishType: 4,
 };
 
-fetchDataWithNamedParams(query, params);
+dbConnections(query, params);
