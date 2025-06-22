@@ -7,13 +7,32 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Launch Main Program",  // src/index.ts を実行
             "runtimeArgs": [
                 "-r",
                 "ts-node/register"
             ],
             "args": [
                 "${workspaceFolder}/src/index.ts"
+            ],
+            "cwd": "${workspaceFolder}",
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ],
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Test Program",  // src/src_test.ts を実行
+            "runtimeArgs": [
+                "-r",
+                "ts-node/register"
+            ],
+            "args": [
+                "${workspaceFolder}/src/src_test.ts"
             ],
             "cwd": "${workspaceFolder}",
             "outFiles": [

@@ -4,5 +4,47 @@
 実行した内容（コミットするまでのコマンド実行・ソース記述や処理等）
 ※コミット毎なので、以下の内容が都度更新され、前のコミットは削除される。（コミット時に記述忘れの場合は、次コミット時にまとめて記述）
 
-・デバッグ処理実装
-launch.json作成
+・プロジェクト全体の改善とパラメータ設定の柔軟化
+コミットメッセージ: "feat: プロジェクト全体の改善とパラメータ設定の柔軟化"
+
+実行した内容:
+1. データベース接続・操作の改善 (common/interface/db.ts)
+   - 重複コードの削除（transformNamedParams関数の統合）
+   - 型安全性の向上（DatabaseConfig, QueryResult型の追加）
+   - 環境変数の検証機能追加（validateEnvVars関数）
+   - エラーハンドリングの改善（async/await対応）
+   - 不要なデバッグコードの削除
+
+2. メインアプリケーションの改善 (src/index.ts)
+   - 材料を1～5種類まで対応するSQLクエリに改良
+   - データ構造の改善（MaterialInfo, DishData型の再設計）
+   - パラメータ設定の柔軟化（コマンドライン引数、環境変数、デフォルト値の優先順位）
+   - 関数の分離（fetchDishData, displayDishData, getDishData）
+   - フロントエンド用API関数の追加
+
+3. プロジェクト設定の改善
+   - package.json: 便利なスクリプト追加（build, start, dev, dev:watch, clean）
+   - tsconfig.json: ファイル検索パターンの改善
+   - env.example: テスト用パラメータ設定を追加
+   - README.md: 詳細な使用方法とセットアップ手順を記載
+
+4. 不要ファイルの削除
+   - src/src_test.ts: 不要なテストファイルを削除
+
+5. 依存関係の追加
+   - rimraf: ビルドファイルクリーンアップ用
+
+実行コマンド:
+npm install rimraf --save-dev
+npm run build
+npm run dev
+npm run dev -- --dishType=4 --dishId=402
+npm start
+
+改善結果:
+- 材料1～5種類まで対応
+- パラメータを柔軟に設定可能（コマンドライン引数、環境変数、デフォルト値）
+- フロントエンドから直接呼び出し可能なAPI関数
+- 型安全性の向上
+- エラーハンドリングの改善
+- 開発環境の整備
