@@ -50,3 +50,6 @@ Thumbs.db
 
 # 環境変数ファイルをGit管理対象から除外
 .env
+
+# DB情報確認用ファイル（ローカル開発用）
+src/db-info.ts
