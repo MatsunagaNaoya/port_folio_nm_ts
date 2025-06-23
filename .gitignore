@@ -56,6 +56,9 @@ local/
 local/*.ts
 local/*.js
 
+# プロジェクト概要メモ（Git管理外）
+プロジェクト概要.md
+
 # DB情報取得スクリプト（ローカル専用）
 src/db-info.ts
 

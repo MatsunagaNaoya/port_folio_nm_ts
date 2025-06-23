@@ -4,6 +4,41 @@
 実行した内容（コミットするまでのコマンド実行・ソース記述や処理等）
 ※コミット毎なので、以下の内容が都度更新され、前のコミットは削除される。（コミット時に記述忘れの場合は、次コミット時にまとめて記述）
 
+
+・ローカルスクリプト・テンプレート整理、不要ファイルのold退避、役割コメント追記
+コミットメッセージ: "chore: ローカルスクリプト・テンプレート整理、不要ファイルのold退避、役割コメント追記"
+
+実行した内容:
+1. local/ ディレクトリ内のスクリプトを用途ごとに分類
+   - 不要・一時退避用は local/old/ へ移動
+   - 汎用テンプレートは local/template/ 配下（migration/analysis/ops）へ移動
+2. 各スクリプトの先頭に役割コメントを日本語で追記
+3. ディレクトリ構成を整理し、運用ルールを明確化
+
+実行コマンド:
+# ディレクトリ作成
+mkdir local/old
+mkdir local/template
+mkdir local/template/migration
+mkdir local/template/analysis
+mkdir local/template/ops
+
+# ファイル移動
+mv local/migration.ts local/old/
+mv local/test-new-table.ts local/old/
+mv local/db-info.ts local/old/
+mv local/migrate-belt-tables.ts local/template/migration/
+mv local/migrate-belt-data.ts local/template/migration/
+mv local/insert-belt-ids.ts local/template/migration/
+mv local/cleanup-belt-tables.ts local/template/ops/
+mv local/belt-effect-analyzer.ts local/template/analysis/
+mv local/belt-data-analysis.ts local/template/analysis/
+
+改善結果:
+- スクリプトの役割が明確化され、再利用・保守が容易に
+- 不要ファイルの退避でlocal/が整理され、運用ルールも明確に
+
+
 ・プロジェクト全体の改善とパラメータ設定の柔軟化
 コミットメッセージ: "feat: プロジェクト全体の改善とパラメータ設定の柔軟化"
 
@@ -48,6 +83,7 @@ npm start
 - 型安全性の向上
 - エラーハンドリングの改善
 - 開発環境の整備
+
 
 ・データベーステーブル構造の改善とマイグレーション
 コミットメッセージ: "feat: データベーステーブル構造の改善とマイグレーション"
