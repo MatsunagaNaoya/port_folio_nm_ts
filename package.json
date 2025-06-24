@@ -10,6 +10,9 @@
 		"dev:watch": "ts-node --watch src/recipe-api.ts",
 		"dev:progress": "ts-node src/user-progress-api.ts",
 		"dev:progress:watch": "ts-node --watch src/user-progress-api.ts",
+		"dev:client": "cd frontend && npm run dev",
+		"dev:server": "ts-node src/server.ts",
+		"dev:all": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
 		"clean": "rimraf dist",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
@@ -23,12 +26,17 @@
 	"devDependencies": {
 		"@types/node": "^20.5.0",
 		"@types/pg": "^8.10.4",
+		"concurrently": "^9.2.0",
 		"rimraf": "^5.0.1",
 		"ts-node": "^10.9.1",
 		"typescript": "^5.1.6"
 	},
 	"dependencies": {
+		"@types/cors": "^2.8.19",
+		"@types/express": "^5.0.3",
+		"cors": "^2.8.5",
 		"dotenv": "^16.3.1",
+		"express": "^5.1.0",
 		"pg": "^8.11.3"
 	}
 }

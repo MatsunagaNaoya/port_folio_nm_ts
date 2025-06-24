@@ -127,3 +127,22 @@ node dist/src/index.js --dishType=1 --dishId=101
 - 新しいテーブル構造での柔軟なクエリ実行
 - ローカル専用スクリプトの安全な管理
 - プロジェクト構造の整理と運用ルールの確立
+
+---
+【コミットメッセージ】
+feat: フロント・APIサーバー同時起動対応、DB連携、デバッグ構成メモ追加、開発効率向上の整理
+
+【実行内容】
+1. concurrently導入、npm run dev:allでフロント・APIサーバー同時起動を実現
+2. ベルト一覧をDBから取得し、フロントで表示する機能を実装
+3. APIサーバーの雛形作成・DBクエリのテーブル名修正
+4. デバッグ構成メモをlocalフォルダに追加
+5. VS Codeのlaunch.jsonにnpm run dev:all用デバッグ構成を追加
+6. local/配下に開発用メモ・スクリプトを整理
+7. その他、開発効率向上のための細かな整理・ドキュメント追記
+
+【主なコマンド例】
+npm install -D concurrently
+npm run dev:all
+
+---

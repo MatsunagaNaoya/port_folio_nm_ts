@@ -2,45 +2,35 @@
 // 既存の属性の説明をホバーして表示します。
 // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
 {
-    "version": "0.2.0",
-    "configurations": [            
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Main Program",  // src/index.ts を実行
-            "runtimeArgs": [
-                "-r",
-                "ts-node/register"
-            ],
-            "args": [
-                "${workspaceFolder}/src/index.ts"
-            ],
-            "cwd": "${workspaceFolder}",
-            "outFiles": [
-                "${workspaceFolder}/**/*.js"
-            ],
-            "skipFiles": [
-                "<node_internals>/**"
-            ]
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Test Program",  // src/src_test.ts を実行
-            "runtimeArgs": [
-                "-r",
-                "ts-node/register"
-            ],
-            "args": [
-                "${workspaceFolder}/src/src_test.ts"
-            ],
-            "cwd": "${workspaceFolder}",
-            "outFiles": [
-                "${workspaceFolder}/**/*.js"
-            ],
-            "skipFiles": [
-                "<node_internals>/**"
-            ]
-        }
-    ]
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Launch Main Program", // src/index.ts を実行
+			"runtimeArgs": ["-r", "ts-node/register"],
+			"args": ["${workspaceFolder}/src/index.ts"],
+			"cwd": "${workspaceFolder}",
+			"outFiles": ["${workspaceFolder}/**/*.js"],
+			"skipFiles": ["<node_internals>/**"]
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Launch Test Program", // src/src_test.ts を実行
+			"runtimeArgs": ["-r", "ts-node/register"],
+			"args": ["${workspaceFolder}/src/src_test.ts"],
+			"cwd": "${workspaceFolder}",
+			"outFiles": ["${workspaceFolder}/**/*.js"],
+			"skipFiles": ["<node_internals>/**"]
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Dev: Frontend + API (npm run dev:all)",
+			"runtimeExecutable": "npm",
+			"runtimeArgs": ["run", "dev:all"],
+			"cwd": "${workspaceFolder}"
+		}
+	]
 }

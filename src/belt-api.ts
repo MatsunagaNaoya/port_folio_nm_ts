@@ -38,6 +38,52 @@ export async function getEffectsMaster() {
 	}
 }
 
+// ベルト一覧（IDごとに効果配列付き）を取得するAPI
+export async function getBelts() {
+	try {
+		const results = await dbConnect({
+			sql: `
+        SELECT 
+          b.belt_id, 
+          em.effect_name, 
+          be.effect_value
+        FROM 
+          dqx_belt b
+        LEFT JOIN 
+          belt_effects be ON b.belt_id = be.belt_id
+        LEFT JOIN 
+          effects_master em ON be.effect_id = em.effect_id
+        ORDER BY 
+          b.belt_id, be.belt_effect_id
+      `,
+			values: {},
+		});
+		// ベルトIDごとに効果をまとめる
+		const belts: { id: number; effects: string[] }[] = [];
+		let currentId = null;
+		let currentEffects: string[] = [];
+		for (const row of results) {
+			if (row.belt_id !== currentId) {
+				if (currentId !== null) {
+					belts.push({ id: currentId, effects: currentEffects });
+				}
+				currentId = row.belt_id;
+				currentEffects = [];
+			}
+			if (row.effect_name) {
+				currentEffects.push(`${row.effect_name}${row.effect_value ? ' +' + row.effect_value : ''}`);
+			}
+		}
+		if (currentId !== null) {
+			belts.push({ id: currentId, effects: currentEffects });
+		}
+		return belts;
+	} catch (err) {
+		console.error('❌ getBeltsエラー:', err);
+		throw err;
+	}
+}
+
 // サンプル実行
 if (require.main === module) {
 	(async () => {
