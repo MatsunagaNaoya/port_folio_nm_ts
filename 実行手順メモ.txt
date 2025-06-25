@@ -146,3 +146,27 @@ npm install -D concurrently
 npm run dev:all
 
 ---
+
+【2024/xx/xx 画面遷移・型エラー修正・APIサーバ起動まとめ】
+
+■ 画面遷移（Vue Router導入）
+1. frontendディレクトリでVue Routerをインストール
+   npm install vue-router@4
+2. src/router.tsを作成し、/main, /belt, /dishの3画面ルートを定義
+3. MainView.vue, CookingView.vueを新規作成、BeltList.vueは既存利用
+4. App.vueにナビゲーションバーと<router-view />を設置
+5. main.tsでrouterをuse
+
+■ 型エラー解消
+- src/shims-vue.d.tsを作成し、.vueファイルの型定義を追加
+- tsconfig.app.json, tsconfig.node.jsonからnoEmitを削除
+- tsconfig.jsonのfiles, referencesをコメントアウト
+
+■ APIサーバ起動
+- デバッグ実行または npx ts-node src/server.ts でAPIサーバを起動
+
+■ その他
+- @vue/tsconfigが必要な場合はnpm install @vue/tsconfig --save-dev
+- linterやTSサーバの再起動、node_modules再インストールも有効
+
+---
