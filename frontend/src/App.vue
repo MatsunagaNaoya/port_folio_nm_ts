@@ -1,34 +1,28 @@
 <script setup lang="ts">
-// import HelloWorld from './components/HelloWorld.vue'
-import BeltList from './components/BeltList.vue';
+// ルーター利用のため特にimport不要
 </script>
 
 <template>
-	<!--
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
-  -->
-	<BeltList />
+	<nav style="margin-bottom: 2em">
+		<router-link to="/main" style="margin-right: 1em">メイン</router-link>
+		<router-link to="/belt" style="margin-right: 1em">ベルト</router-link>
+		<router-link to="/dish">調理</router-link>
+	</nav>
+	<router-view />
 </template>
 
 <style scoped>
-.logo {
-	height: 6em;
-	padding: 1.5em;
-	will-change: filter;
-	transition: filter 300ms;
+nav {
+	background: #f5f5f5;
+	padding: 1em;
+	border-radius: 8px;
 }
-.logo:hover {
-	filter: drop-shadow(0 0 2em #646cffaa);
+router-link {
+	text-decoration: none;
+	color: #333;
+	font-weight: bold;
 }
-.logo.vue:hover {
-	filter: drop-shadow(0 0 2em #42b883aa);
+router-link.router-link-exact-active {
+	color: #42b983;
 }
 </style>
