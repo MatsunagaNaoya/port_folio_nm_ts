@@ -5,6 +5,11 @@
 ※コミット毎なので、以下の内容が都度更新され、前のコミットは削除される。（コミット時に記述忘れの場合は、次コミット時にまとめて記述）
 
 
+・コミットメッセージ名
+実行した内容（コミットするまでのコマンド実行・ソース記述や処理等）
+※コミット毎なので、以下の内容が都度更新され、前のコミットは削除される。（コミット時に記述忘れの場合は、次コミット時にまとめて記述）
+
+
 ・ローカルスクリプト・テンプレート整理、不要ファイルのold退避、役割コメント追記
 コミットメッセージ: "chore: ローカルスクリプト・テンプレート整理、不要ファイルのold退避、役割コメント追記"
 
@@ -168,5 +173,60 @@ npm run dev:all
 ■ その他
 - @vue/tsconfigが必要な場合はnpm install @vue/tsconfig --save-dev
 - linterやTSサーバの再起動、node_modules再インストールも有効
+
+---
+
+・環境変数読み込みエラー・PostgreSQL型エラーの修正とトラブルシューティングメモ作成
+コミットメッセージ: "fix: 環境変数読み込みエラー・PostgreSQL型エラーの修正とトラブルシューティングメモ作成"
+
+実行した内容:
+1. 環境変数読み込みエラーの修正
+   - .envファイルが存在しない問題を解決（env.exampleからコピー）
+   - 文字コード問題（BOM付きUTF-8）を修正（UTF-8 BOMなしで保存）※主な要因で、途中作業時にUTF-16 LEに変更されてた
+   - 各APIファイルにdotenv読み込みを追加
+     - src/server.ts
+     - src/belt-api.ts  
+     - src/recipe-api.ts
+     - src/user-progress-api.ts
+
+2. PostgreSQL型エラーの修正
+   - del_flgカラムのboolean型とinteger型比較エラーを修正
+   - 要因：del_flgカラムの型をinteger→boolean型に変更した為
+   - SQL文の修正:
+     - WHERE b.del_flg = 0 → WHERE b.del_flg = false
+     - SET del_flg = 1 → SET del_flg = true
+     - SET del_flg = 0 → SET del_flg = false
+
+3. デバッグ時のキャッシュ問題の解決
+   - ts-nodeキャッシュ問題を特定
+   - ファイル修正後はデバッグ終了→再実行が必要なことを確認
+
+4. トラブルシューティングメモの作成
+   - local/開発トラブルシューティングメモ.mdを作成
+   - 環境変数管理、PostgreSQL型管理、開発フローのベストプラクティスを記録
+   - 今後の同様トラブル防止のための教訓を整理
+
+実行コマンド:
+# .envファイル作成
+Get-Content env.example | Set-Content .env
+
+# 開発サーバー起動
+npm run dev:all
+
+# デバッグ実行（VSCode launch.json使用）
+# "Dev: Frontend + API (npm run dev:all)" を実行
+
+改善結果:
+- 環境変数が正しく読み込まれるようになり、DB接続エラーが解決
+- PostgreSQLの型エラーが解消され、APIが正常に動作
+- デバッグ時のキャッシュ問題の対処法を確立
+- トラブルシューティングメモにより、今後の開発効率が向上
+- OneDrive配下での開発時の注意点を明確化
+
+教訓:
+- .envファイルは必ずUTF-8（BOMなし）で保存
+- PostgreSQLのboolean型カラムにはtrue/falseを使用（0/1は不可）
+- ファイル修正後はデバッグ終了→再実行が必要
+- OneDrive配下は開発環境として非推奨（ローカルディスク直下推奨）
 
 ---

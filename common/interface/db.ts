@@ -2,6 +2,7 @@ import { Pool, QueryResult } from 'pg';
 import dotenv from 'dotenv';
 
 dotenv.config();
+console.log('DB_HOST:', process.env.DB_HOST);
 
 // 環境変数の型定義
 interface DatabaseConfig {

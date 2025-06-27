@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import { dbConnect, closeConnection } from '../common/interface/db';
 
 // 材料情報の型定義

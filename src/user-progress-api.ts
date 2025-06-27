@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import { dbConnect, closeConnection } from '../common/interface/db';
 
 // ユーザー進捗情報の型定義

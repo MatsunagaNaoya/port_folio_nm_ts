@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import { dbConnect, closeConnection } from '../common/interface/db';
 
 // ベルトIDごとに効果一覧を取得するAPI
@@ -38,7 +41,7 @@ export async function getEffectsMaster() {
 	}
 }
 
-// ベルト一覧（IDごとに効果配列付き）を取得するAPI
+// ベルト一覧（IDごとに効果配列付き）を取得するAPI（論理削除されていないもののみ）
 export async function getBelts() {
 	try {
 		const results = await dbConnect({
@@ -53,6 +56,8 @@ export async function getBelts() {
           belt_effects be ON b.belt_id = be.belt_id
         LEFT JOIN 
           effects_master em ON be.effect_id = em.effect_id
+        WHERE 
+          b.del_flg = false OR b.del_flg IS NULL
         ORDER BY 
           b.belt_id, be.belt_effect_id
       `,
@@ -80,6 +85,44 @@ export async function getBelts() {
 		return belts;
 	} catch (err) {
 		console.error('❌ getBeltsエラー:', err);
+		throw err;
+	}
+}
+
+// ベルトの論理削除API
+export async function deleteBelt(beltId: number) {
+	try {
+		const result = await dbConnect({
+			sql: `
+        UPDATE dqx_belt 
+        SET del_flg = true, 
+            updated_at = CURRENT_TIMESTAMP
+        WHERE belt_id = :belt_id
+      `,
+			values: { belt_id: beltId },
+		});
+		return result;
+	} catch (err) {
+		console.error('❌ deleteBeltエラー:', err);
+		throw err;
+	}
+}
+
+// ベルトの論理削除取り消しAPI（復元機能）
+export async function restoreBelt(beltId: number) {
+	try {
+		const result = await dbConnect({
+			sql: `
+        UPDATE dqx_belt 
+        SET del_flg = false, 
+            updated_at = CURRENT_TIMESTAMP
+        WHERE belt_id = :belt_id
+      `,
+			values: { belt_id: beltId },
+		});
+		return result;
+	} catch (err) {
+		console.error('❌ restoreBeltエラー:', err);
 		throw err;
 	}
 }
